@@ -40,7 +40,7 @@ class TravelersKnapsackBack:
         ['k2','p3','k8','p7','k7','p3','k2'],
         ['p2','sl2','k1','p2 sso','p6','p2tog','k1','m1','k5','m1','k1','p2tog','p6','sl2','k1','p2 sso','p2'],
         ['k10','p9','k10']]
-        return  Pattern('Double Leaf Pattern', stitch_map)
+        return Pattern('Double Leaf Pattern', stitch_map)
 
     def make_border(self):
         stitch_map=[['k2'],['p2']]
@@ -49,6 +49,54 @@ class TravelersKnapsackBack:
     def get_panel(self):
         return self.panel
 
+class DiamondCableArmWarmers:
+    def __init__(self):
+        self.panel = Project('Diamond Cable Arm Warmers', 42)
+        self.panel.addPattern(self.make_right_border())
+        self.panel.addPattern(self.make_cable_pattern())
+        self.panel.addPattern(self.make_right_border())
+        self.panel.addPattern(self.make_stockinette())
+
+
+    def make_stockinette(self):
+        stitch_map = [['k all'], ['p all']]
+        return Pattern('Stockinette', stitch_map)
+
+    def make_right_border(self):
+        stitch_map = [
+            ['ktbl', 'k', 'p', 'ktbl', 'p'],
+            ['ktbl', 'p', 'k', 'ktbl', 'p']
+        ]
+        return Pattern('Right Border', stitch_map)
+
+    def make_left_border(self):
+        stitch_map = [
+            ['p','ktbl', 'p', 'k', 'ktbl'],
+            ['p','ktbl', 'k', 'p', 'ktbl']
+        ]
+        return Pattern('Left Border', stitch_map)
+
+    def make_cable_pattern(self):
+        stitch_map = [['k2', '[p1, k1]x3', 'p1', 'k2'],
+        ['t3f', '[p1, k1]x2', 'p1', 't3b'],
+        ['p1','k2', '[p1, k1]x2', 'p1', 'k2', 'p1'],
+        ['p1','t3f', 'p1', 'k1', 'p1', 't3b', 'p1'],
+        ['p2','k2', 'p1', 'k1', 'p1', 'k2', 'p2'],
+        ['p2','t3f','p1','t3b','p2'],
+        ['p3','k2','p1','k2','p3'],
+        ['p3','c5b','p3'],
+        ['p3','k5','p3'],
+        ['p2','c3b','p1','c3f','p2'],
+        ['p2','k3','p1','k3','p2'],
+        ['p1','c3b','p1','k1','p1','c2f','p1'],
+        ['p1','k3','p1','k1','p1','k3','p1'],
+        ['c3b''[p1, k1]x2','p1','c3f'],
+        ['k3','[p1, k1]x2','p1','k3'],
+        ['k2','[p1, k1]x3','p1','k2']]
+        return Pattern('Cable Pattern', stitch_map)
+
+    def get_panel(self):
+        return self.panel
 
 class Project:
 
@@ -112,20 +160,36 @@ class Pattern:
 
 
 if __name__=="__main__":
-    bag = TravelersKnapsackBack()
-    bag_panel = bag.get_panel()
-    bag_panel.make_all_rows()
+    # bag = TravelersKnapsackBack()
+    # bag_panel = bag.get_panel()
+    # bag_panel.make_all_rows()
+    #
+    # row_num = int(input("N for next, P for previous, Q to quit\n Row number please...\n"))-1
+    #
+    # b_next = input(bag_panel.get_row(row_num))
+    # while b_next != 'Q' or b_next != 'q':
+    #     if b_next == 'N' or b_next == 'n':
+    #         row_num += 1
+    #     else:
+    #         row_num -= 1
+    #     b_next = input(bag_panel.get_row(row_num))
+    #     print(b_next)
 
-    row_num = int(input("N for next, P for previous, Q to quit\n Row number please...\n"))-1
-    
-    b_next = input(bag_panel.get_row(row_num))
-    while b_next != 'Q':
+    gloves = DiamondCableArmWarmers()
+    glove_panel = gloves.get_panel()
+    glove_panel.make_all_rows()
+
+    row_num = int(input("N for next, P for previous, Q to quit\n Row number please...\n")) - 1
+
+    b_next = input(glove_panel.get_row(row_num))
+    while b_next != 'Q' or b_next != 'q':
         if b_next == 'N' or b_next == 'n':
-            row_num+=1
+            row_num += 1
         else:
-            row_num-=1
-        b_next = input(bag_panel.get_row(row_num))
+            row_num -= 1
+        b_next = input(glove_panel.get_row(row_num))
         print(b_next)
+
 
 
 
